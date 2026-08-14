@@ -27,6 +27,30 @@ NAME_TO_ISBN = {value.book_name:key for (key, value) in BOOK_DATA.items()}
 def add_book():
     # book_name, author, ISBN, page_num, page_size
 
+    ##############################
+    ### 로직 수정: ISBN 넘버는 generator로 자동 생성
+    ##############################    
+
+    """
+    # 딕셔너리 제너레이터 함수 만들기
+    def dict_generator(max_num):
+    for i in range(max_num):
+        yield {i: i * 2}
+
+    # 사용하기
+    gen = dict_generator(3)
+    print(next(gen))  # {0: 0}
+    print(next(gen))  # {1: 2}
+    
+    # 튜플이나 리스트로 딕셔너리 만들기
+    keys = ['a', 'b', 'c']
+    values = [1, 2, 3]
+
+    result = dict(zip(keys, values))
+    print(result)  # {'a': 1, 'b': 2, 'c': 3}
+
+    """
+
     ISBN = check_safe_ISBN(input("ISBN을 입력하세요(ex. ISBN0035): "))
     if not ISBN:
         return
@@ -51,6 +75,10 @@ def add_book():
 # 2. 전체 도서 조회
 @deco_border
 def print_book_list():
+    ##############################
+    ### 로직 수정: for loop을 generator 방식으로 꺼내쓰기
+    ### 책 클래스의 갯수가 무한이 되어도 커버 가능
+    ##############################
     for book in BOOK_DATA.values():
         print(book)
     return
@@ -81,6 +109,11 @@ def query_stats():
      '통계 조회' 기능을 추가하여, 저장된 이력 데이터를 바탕으로 월간 대
     여 통계나 가장 많이 대여된 도서 목록을 콘솔 화면에 출력
     """
+
+    ##############################
+    ### for loop을 generator 방식으로 꺼내쓰기
+    ### 책 클래스의 갯수가 무한이 되어도 커버 가능
+    ##############################
 
     
     pass
