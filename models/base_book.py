@@ -18,19 +18,11 @@ class base_book:
         self.dt_checkout = dt_checkout
         self.checkout_history.append((self.ISBN, dt_checkout))
 
-
-        # 저장소 구현 패턴으로 다시 짜보기??
-        # https://app.notion.com/p/5-3-208566040df88286aae90100c3e4bfee
-
-        # def message_store():
-        #   storage = ""
-        #   def add_message
-        #       nonlocal storage
-        #       storage += f"\n{message}"
-        #   return add_message
-        # my_storage = message_store()
-        # my_storage("새로운 알림이 도착했습니다")
-        # my_storage("출석 체크가 완료되었습니다")
+    def calc_checkout_count(self, dt_condition = ""):
+        if dt_condition:
+            return len(self.checkout_history)
+        else:
+            return len([(isbn, dt) for (isbn, dt) in self.checkout_history if dt.startswith(dt_condition)])
 
     def return_book(self, dt_return):
         self.is_checkout = False
