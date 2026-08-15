@@ -5,12 +5,12 @@ class paper_book(base_book):
         super().__init__(book_name, author, ISBN, is_checkout, dt_checkout, dt_return)
         self.page_num = page_num
         self.page_size = page_size
+        self.checkout_available = "대여가능"
     
     def __str__(self):
-        checkout_available = ""
         if not self.is_checkout:
-            checkout_available = "대여가능"
+            self.checkout_available = "대여가능"
         else:
-            checkout_available = "대여불가"
+            self.checkout_available = "대여불가"
         
-        return f"[{checkout_available}] {self.info}-{self.page_num}p"
+        return f"[{self.checkout_available}] {self.info}-{self.page_num}p"
