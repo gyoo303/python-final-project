@@ -8,9 +8,5 @@ class PaperBook(BaseBook):
         self.__checkout_available = "대여가능"
     
     def __str__(self):
-        if not self.get_is_checkout():
-            self.__checkout_available = "대여가능"
-        else:
-            self.__checkout_available = "대여불가"
-        
+        self.__checkout_available = "대여불가" if self.get_is_checkout() else "대여가능"        
         return f"[{self.__checkout_available}] {self.get_info()}-{self.__page_num}p"
