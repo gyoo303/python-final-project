@@ -147,7 +147,7 @@ def query_stats():
         for isbn, book in generate_dict(BOOK_DATA):
             checkout_count = book.calc_checkout_count()
             if stat_result["max_checkout_count"] < checkout_count:
-                stat_result["max_checkout_book_name"] = book.book_name
+                stat_result["max_checkout_book_name"] = book.get_book_name()
                 stat_result["max_checkout_count"] = checkout_count
         
         print(f"가장 많이 대여된 서적: <{stat_result['max_checkout_book_name']}> (누적 대여 {stat_result['max_checkout_count']}회)")
