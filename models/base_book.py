@@ -30,8 +30,7 @@ class BaseBook:
         self.__return_history.append((self.get_ISBN(), dt_return))
 
     def __str__(self):
-        checkout_available = ""
-        checkout_available = "대여 불가" if self.__is_checkout else "대여 가능"            
+        checkout_available = "대여 불가" if self.__is_checkout else "대여 가능"
         return f"[{checkout_available}] {self.__info}\n{self.__book_name}"
 
     def get_is_checkout(self):
