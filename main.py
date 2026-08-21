@@ -1,20 +1,20 @@
-from models.specialized_books import paper_book
+from models.specialized_books import PaperBook
 from utils.helpers import check_safe_int, deco_border, generate_dict
 from datetime import datetime
 
 # 고유값인 ISBN 넘버로 책 정보에 접근할 수 있도록,
 # ISBN 넘버를 key, 책 class를 value로 갖는 딕셔너리 자료형 선택
 BOOK_DATA = {
-    "ISBN0004" : paper_book("채식주의자", "한강", "ISBN0004", 247, "130x195"),
-    "ISBN0003" : paper_book("소년이 온다", "한강", "ISBN0003", 216, "145x210"),
-    "ISBN0000" : paper_book("아몬드", "손원평", "ISBN0000", 264, "135x200"),
-    "ISBN0008" : paper_book("달러구트 꿈 백화점", "이미예", "ISBN0008", 300, "134x200"),
-    "ISBN0001" : paper_book("불편한 편의점", "김호연", "ISBN0001", 268, "135x200"),
-    "ISBN0005" : paper_book("82년생 김지영", "조남주", "ISBN0005", 192, "130x195"),
-    "ISBN0009" : paper_book("피프티 피플", "정세랑", "ISBN0009", 396, "140x205"),
-    "ISBN0006" : paper_book("구의 증명", "최진영", "ISBN0006", 172, "128x188"),
-    "ISBN0002" : paper_book("우리가 빛의 속도로 갈 수 없다면", "김초엽", "ISBN0002", 330, "137x197"),
-    "ISBN0007" : paper_book("시선으로부터,", "정세랑", "ISBN0007", 340, "145x210")
+    "ISBN0004" : PaperBook("채식주의자", "한강", "ISBN0004", 247, "130x195"),
+    "ISBN0003" : PaperBook("소년이 온다", "한강", "ISBN0003", 216, "145x210"),
+    "ISBN0000" : PaperBook("아몬드", "손원평", "ISBN0000", 264, "135x200"),
+    "ISBN0008" : PaperBook("달러구트 꿈 백화점", "이미예", "ISBN0008", 300, "134x200"),
+    "ISBN0001" : PaperBook("불편한 편의점", "김호연", "ISBN0001", 268, "135x200"),
+    "ISBN0005" : PaperBook("82년생 김지영", "조남주", "ISBN0005", 192, "130x195"),
+    "ISBN0009" : PaperBook("피프티 피플", "정세랑", "ISBN0009", 396, "140x205"),
+    "ISBN0006" : PaperBook("구의 증명", "최진영", "ISBN0006", 172, "128x188"),
+    "ISBN0002" : PaperBook("우리가 빛의 속도로 갈 수 없다면", "김초엽", "ISBN0002", 330, "137x197"),
+    "ISBN0007" : PaperBook("시선으로부터,", "정세랑", "ISBN0007", 340, "145x210")
 }
 
 # 효율적인 데이터 접근을 위한 별도의 변수들
@@ -24,7 +24,7 @@ BOOK_DATA = {
 BOOK_ISBN = set(["ISBN%04d" % num for num in range(len(BOOK_DATA))])
 
 # 사용자가 책 이름을 입력할 경우 빠르게 ISBN 넘버를 찾을 수 있도록 딕셔너리 자료형 선택
-NAME_TO_ISBN = {book.book_name:isbn for isbn, book in generate_dict(BOOK_DATA)}
+NAME_TO_ISBN = {book.get_book_name():isbn for isbn, book in generate_dict(BOOK_DATA)}
 
 # 1. 도서 등록
 @deco_border
@@ -45,7 +45,7 @@ def add_book():
     
     # 신규 ISBN 발급
     new_ISBN = "ISBN%04d" % len(BOOK_DATA)
-    BOOK_DATA[new_ISBN] = paper_book(book_name, author, new_ISBN, page_num, page_size)
+    BOOK_DATA[new_ISBN] = PaperBook(book_name, author, new_ISBN, page_num, page_size)
 
     # 갱신
     NAME_TO_ISBN[book_name] = new_ISBN
@@ -63,7 +63,7 @@ def print_book_list():
     """
     
     print("*** 전체 도서 목록 (가나다 순) ***")
-    for _, book in iter(sorted(BOOK_DATA.items(), key=lambda item: item[1].book_name)):
+    for _, book in iter(sorted(BOOK_DATA.items(), key=lambda item: item[1].get_book_name())):
         print(book)
     return
 
@@ -96,11 +96,11 @@ def borrow_return_book():
             
             user_book = BOOK_DATA[user_input]
             
-            if user_book.is_checkout: # 대여가 된 책
-                print(f"<{user_book.book_name}> 반납이 완료되었습니다.")
+            if user_book.get_is_checkout(): # 대여가 된 책
+                print(f"<{user_book.get_book_name()}> 반납이 완료되었습니다.")
                 user_book.return_book(dt)
             else:
-                print(f"<{user_book.book_name}> 대여가 완료되었습니다.")
+                print(f"<{user_book.get_book_name()}> 대여가 완료되었습니다.")
                 user_book.checkout_book(dt)
         else:
             print("입력하신 서적을 찾을 수 없습니다.")
@@ -131,7 +131,7 @@ def query_stats():
         current_year_month = datetime.now().strftime('%Y-%m')
         
         for isbn, book in generate_dict(BOOK_DATA):
-            stat_result[BOOK_DATA[isbn].book_name] = book.calc_checkout_count(dt_condition = current_year_month)
+            stat_result[BOOK_DATA[isbn].get_book_name()] = book.calc_checkout_count(dt_condition = current_year_month)
         
         stat_result_top5 = sorted(stat_result.items(), key=lambda item: item[1], reverse=True)[:5]
 
