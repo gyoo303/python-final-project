@@ -35,18 +35,18 @@
 0. 메뉴
 ![메뉴](https://plain-apac-prod-public.komododecks.com/202608/24/ps1nhCukhDznBIkNwIqA/image.png)
 1. 도서 등록
-![도서등록](https://plain-apac-prod-public.komododecks.com/202608/24/dn8fcq3IfnMnxIL08V7v/image.png)
-2. 도서 조회
+![도서등록](https://plain-apac-prod-public.komododecks.com/202608/24/8aB6mRtVJC4bXHPxvWTJ/image.png)
+1. 도서 조회
 ![도서조회](https://plain-apac-prod-public.komododecks.com/202608/24/9kSjfKYzCgN1T6fOdZqy/image.png)
-3. 도서 검색
+1. 도서 검색
 ![도서검색](https://plain-apac-prod-public.komododecks.com/202608/24/YVC1gZ3sXLMrMYBBEfDt/image.png)
-4. 도서 대여/반납
+1. 도서 대여/반납
 ![도서대여](https://plain-apac-prod-public.komododecks.com/202608/24/6bDki9MKGxAhVsPVqpwQ/image.png)
 ![도서반납](https://plain-apac-prod-public.komododecks.com/202608/24/CyEctDqORLyxhTIWV6CY/image.png)
-5. 통계 조회
+1. 통계 조회
 ![통계조회1](https://plain-apac-prod-public.komododecks.com/202608/24/kcQBRjbek0NV9VAB7g2c/image.png)
 ![통계조회2](https://plain-apac-prod-public.komododecks.com/202608/24/Y7hiPxbebxF97U9ZmTHx/image.png)
-6. 프로그램 종료
+1. 프로그램 종료
 ![프로그램종료](https://plain-apac-prod-public.komododecks.com/202608/24/0Z7bYRtiUYraOTPRUmcw/image.png)
 
 ---
